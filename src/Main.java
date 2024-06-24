@@ -1,3 +1,6 @@
+import controllers.ManagerTasks;
+import model.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -18,21 +21,32 @@ public class Main {
         manager.addEpicSubTask(removal, removal2);
         manager.addEpicTask(magazine);
         manager.addEpicSubTask(magazine, product);
-        System.out.println(manager.printAllTasks());
+        manager.updateSubTask(removal,removal1);
 
-        sport.setStatus(TaskStatus.IN_PROGRESS);
+        System.out.println(manager.getEpic());
+
+        sport.status=TaskStatus.IN_PROGRESS;
         manager.updateTask(sport);
-        study.setStatus(TaskStatus.DONE);
+
+        study.status = TaskStatus.DONE;
         manager.updateTask(study);
-        removal1.setStatus(TaskStatus.IN_PROGRESS);
+
+        removal1.status =(TaskStatus.IN_PROGRESS);
         manager.updateEpicTask(removal);
-        product.setStatus(TaskStatus.DONE);
+
+        product.status=TaskStatus.DONE;
         manager.updateEpicTask(magazine);
 
-        System.out.println(manager.printAllTasks());
+        manager.delSubTask(-362558829,-112647749);
+
+        System.out.println(manager.getTasks());
+
         manager.delEpicTask(-1364837361);
         manager.delTask(1223665245);
-        System.out.println(manager.printAllTasks());
+
+       System.out.println(manager.getSubTasks());
+        System.out.println(manager.getEpic());
+        System.out.println(manager.getTasks());
 
 
     }

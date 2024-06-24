@@ -1,13 +1,15 @@
+package model;
+
 import java.util.Objects;
 
 public class Task {
     private final int id;
-    private String name;
-    private String description;
-    private TaskStatus status = TaskStatus.NEW;
+    protected String name;
+    protected String description;
+    public TaskStatus status = TaskStatus.NEW;
 
 
-    Task(String name, String description) {
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
         this.id = hashCode();
@@ -22,9 +24,6 @@ public class Task {
         this.description = description;
     }
 
-    public void setStatus(TaskStatus status) {
-        this.status = status;
-    }
 
     public String getDescription() {
         return description;
@@ -34,9 +33,6 @@ public class Task {
         return name;
     }
 
-    public TaskStatus getStatus() {
-        return status;
-    }
 
     public int getId() {
         return id;
@@ -67,7 +63,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{name: " + name +
+        return "model.Task{name: " + name +
                 ", description: " + description +
                 ", status: " + status +
                 ", Id: " + id + "}";

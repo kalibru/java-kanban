@@ -1,13 +1,15 @@
+package model;
+
 public class SubTask extends Task {
-    SubTask(String name, String description) {
+    public SubTask(String name, String description) {
         super(name, description);
     }
 
     @Override
     public String toString() {
-        return "SubTask{name: " + getName() +
+        return "model.SubTask{name: " + getName() +
                 ", description: " + getDescription() +
-                ", status: " + getStatus() +
+                ", status: " + status +
                 ", ID: " + getId() + "}";
 
     }
