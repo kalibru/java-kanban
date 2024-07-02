@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Epic extends Task {
     private ArrayList<SubTask> subTasks;
-    private TaskStatus status = TaskStatus.NEW;
+    private TaskStatus status;
 
     public Epic(String name, String description) {
         super(name, description);
@@ -23,31 +23,30 @@ public class Epic extends Task {
     }
 
 
-    public ArrayList<SubTask> getSubTasks() {
+    public ArrayList<SubTask> getSubtasks() {
         return subTasks;
     }
 
     public void updateEpicStatus() {
         if (subTasks != null) {
             int doneTasks = 0;
+            int newTasks = 0;
             for (SubTask task : subTasks) {
-                if (task.status.equals(TaskStatus.DONE)) {
-                    doneTasks++;
+                switch (task.status){
+                    case DONE -> doneTasks++;
+                    case NEW -> newTasks++;
                 }
-                if (doneTasks == subTasks.size()) {
-                    setStatus(TaskStatus.DONE);
-                } else if (doneTasks > 0) {
-                    setStatus(TaskStatus.IN_PROGRESS);
+                if(doneTasks == subTasks.size()){
+                    status = TaskStatus.DONE;
                 }
-                if (task.status.equals(TaskStatus.IN_PROGRESS)) {
-                    setStatus(TaskStatus.IN_PROGRESS);
+                if (newTasks == subTasks.size()){
+                    status = TaskStatus.NEW;
+                }
+                if(doneTasks != subTasks.size() && newTasks != subTasks.size()){
+                    status = TaskStatus.IN_PROGRESS;
                 }
             }
         } else status = TaskStatus.NEW;
-    }
-
-    public void setStatus(TaskStatus status) {
-        this.status = status;
     }
 
     @Override
@@ -55,7 +54,6 @@ public class Epic extends Task {
         return "model.Epic{name: " + getName() +
                 ", description: " + getDescription() +
                 ", status: " + status +
-                ", ID: " + getId() +
                 ", " + subTasks + "}";
     }
 

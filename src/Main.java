@@ -14,37 +14,36 @@ public class Main {
 
         ManagerTasks manager = new ManagerTasks();
 
-        manager.addTask(sport);
-        manager.addTask(study);
-        manager.addEpicTask(removal);
-        manager.addEpicSubTask(removal, removal1);
-        manager.addEpicSubTask(removal, removal2);
-        manager.addEpicTask(magazine);
-        manager.addEpicSubTask(magazine, product);
+        manager.add(sport);
+        manager.add(study);
+        manager.add(removal);
+        manager.add(removal, removal1);
+        manager.add(removal, removal2);
+        manager.add(magazine);
+        manager.add(magazine, product);
         manager.updateSubTask(removal,removal1);
 
         System.out.println(manager.getEpic());
 
         sport.status=TaskStatus.IN_PROGRESS;
         manager.updateTask(sport);
-
         study.status = TaskStatus.DONE;
         manager.updateTask(study);
 
         removal1.status =(TaskStatus.IN_PROGRESS);
-        manager.updateEpicTask(removal);
+        manager.updateEpic(removal);
 
         product.status=TaskStatus.DONE;
-        manager.updateEpicTask(magazine);
+        manager.updateEpic(magazine);
 
-        manager.delSubTask(-362558829,-112647749);
+        manager.delSubtask(-362558829,-112647749);
 
         System.out.println(manager.getTasks());
 
-        manager.delEpicTask(-1364837361);
+        manager.delEpic(-1364837361);
         manager.delTask(1223665245);
 
-       System.out.println(manager.getSubTasks());
+       System.out.println(manager.getSubtasks());
         System.out.println(manager.getEpic());
         System.out.println(manager.getTasks());
 

@@ -9,8 +9,7 @@ public class SubTask extends Task {
     public String toString() {
         return "model.SubTask{name: " + getName() +
                 ", description: " + getDescription() +
-                ", status: " + status +
-                ", ID: " + getId() + "}";
+                ", status: " + status + "}";
 
     }
 }

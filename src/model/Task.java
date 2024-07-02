@@ -3,7 +3,7 @@ package model;
 import java.util.Objects;
 
 public class Task {
-    private final int id;
+    protected  int id;
     protected String name;
     protected String description;
     public TaskStatus status = TaskStatus.NEW;
@@ -12,7 +12,6 @@ public class Task {
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.id = hashCode();
     }
 
 
@@ -23,7 +22,13 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+    public void setId(int id){
+        this.id = id;
+    }
 
+    public int getId(){
+        return id;
+    }
 
     public String getDescription() {
         return description;
@@ -33,10 +38,6 @@ public class Task {
         return name;
     }
 
-
-    public int getId() {
-        return id;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -65,7 +66,6 @@ public class Task {
     public String toString() {
         return "model.Task{name: " + name +
                 ", description: " + description +
-                ", status: " + status +
-                ", Id: " + id + "}";
+                ", status: " + status + "}";
     }
 }
