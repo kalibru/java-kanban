@@ -3,15 +3,21 @@ package model;
 import java.util.Objects;
 
 public class Task {
-    protected  int id;
+    protected  int id = hashCode();
     protected String name;
     protected String description;
-    public TaskStatus status = TaskStatus.NEW;
+    private TaskStatus status = TaskStatus.NEW;
 
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+    public Task(Task afterTask){
+        this.name = afterTask.name;
+        this.description = afterTask.description;
+        this.id = afterTask.id;
+        this.status = afterTask.status;
     }
 
 
@@ -24,6 +30,12 @@ public class Task {
     }
     public void setId(int id){
         this.id = id;
+    }
+    public void setStatus(TaskStatus status){
+        this.status = status;
+    }
+    public TaskStatus getStatus(){
+        return status;
     }
 
     public int getId(){
