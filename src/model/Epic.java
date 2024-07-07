@@ -8,12 +8,6 @@ public class Epic extends Task {
     public Epic(String name, String description) {
         super(name, description);
     }
-    public Epic(Epic afterEpic){
-        super(afterEpic.name, afterEpic.description);
-        this.subTasks = afterEpic.subTasks;
-        this.id = afterEpic.id;
-        setStatus(afterEpic.getStatus());
-    }
 
     public void addSubTask(SubTask task) {
         if (subTasks == null) {
@@ -37,18 +31,18 @@ public class Epic extends Task {
             int doneTasks = 0;
             int newTasks = 0;
             for (SubTask task : subTasks) {
-                switch (task.getStatus()){
+                switch (task.getStatus()) {
                     case DONE -> doneTasks++;
                     case NEW -> newTasks++;
                 }
             }
-            if(doneTasks == subTasks.size()){
+            if (doneTasks == subTasks.size()) {
                 setStatus(TaskStatus.DONE);
             }
-            if (newTasks == subTasks.size()){
+            if (newTasks == subTasks.size()) {
                 setStatus(TaskStatus.NEW);
             }
-            if(doneTasks != subTasks.size() && newTasks != subTasks.size()){
+            if (doneTasks != subTasks.size() && newTasks != subTasks.size()) {
                 setStatus(TaskStatus.IN_PROGRESS);
             }
         } else setStatus(TaskStatus.NEW);
@@ -61,7 +55,5 @@ public class Epic extends Task {
                 ", status(): " + getStatus() +
                 ", " + subTasks + "}";
     }
-
-
 
 }

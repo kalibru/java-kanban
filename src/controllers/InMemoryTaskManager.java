@@ -42,8 +42,9 @@ public class InMemoryTaskManager extends InMemoryHistoryManager implements TaskM
         addHistory(subtasks.get(id));
         return subtasks.get(id);
     }
+
     @Override
-    public ArrayList<SubTask> getEpicSubtasks(int id){
+    public ArrayList<SubTask> getEpicSubtasks(int id) {
         return epics.get(id).getSubtasks();
     }
 
@@ -137,5 +138,5 @@ public class InMemoryTaskManager extends InMemoryHistoryManager implements TaskM
         epic.updateEpicStatus();
         epics.put(epic.getId(), epic);
     }
-    }
+}
 

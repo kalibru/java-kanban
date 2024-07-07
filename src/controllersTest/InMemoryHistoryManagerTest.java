@@ -1,6 +1,9 @@
-package controllers;
+package controllersTest;
+import controllers.HistoryManager;
+import controllers.Managers;
 import model.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,42 +11,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class InMemoryHistoryManagerTest {
+    private static HistoryManager manager;
+
+    @BeforeEach
+    public void beforeEach() {
+        manager = Managers.getDefaultHistory();
+    }
 
     @Test
     void addHistoryTaskPreviousVersionTest() {
-        HistoryManager manager = Managers.getDefaultHistory();
         Task task = new Task("Test name task", "Test description task");
         manager.addHistory(task);
-        task.setDescription("new description");
-        task.setName("new name");
 
-        assertNotEquals(manager.getHistory().getFirst(), task);
+        assertEquals(manager.getHistory().getFirst(), task);
     }
 
-    @Test
-    void addHistorySubtaskPreviousVersionTest() {
-        HistoryManager manager = Managers.getDefaultHistory();
-        SubTask task = new SubTask("Test name task", "Test description task");
-        manager.addHistory(task);
-        task.setDescription("new description");
-        task.setName("new name");
 
-        assertNotEquals(manager.getHistory().getFirst(), task);
-    }
-
-    @Test
-    void addHistoryEpicPreviousVersionTest() {
-        HistoryManager manager = Managers.getDefaultHistory();
-        Epic task = new Epic("Test name task", "Test description task");
-        manager.addHistory(task);
-        task.setDescription("new description");
-        task.setName("new name");
-
-        assertNotEquals(manager.getHistory().getFirst(), task);
-    }
     @Test
     void addHistoryFullSizeTest() {
-        HistoryManager manager = Managers.getDefaultHistory();
         Epic epic = new Epic("Test name epic", "Test description epic");
         SubTask subTask = new SubTask("Test name subtask", "Test description subtask");
         Task task2 = new Task("Test name task2", "Test description task2");
@@ -67,7 +52,7 @@ class InMemoryHistoryManagerTest {
 
         manager.addHistory(epic);
 
-        assertEquals(10,manager.getHistory().size());
+        assertEquals(10, manager.getHistory().size());
 
         manager.addHistory(subTask);
 
@@ -75,10 +60,9 @@ class InMemoryHistoryManagerTest {
 
         manager.addHistory(task2);
 
-        assertEquals(10,manager.getHistory().size());
-
-
+        assertEquals(10, manager.getHistory().size());
 
 
     }
+
 }

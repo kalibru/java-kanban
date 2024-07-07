@@ -1,15 +1,24 @@
-package controllers;
+package controllersTest;
+import controllers.InMemoryTaskManager;
+import controllers.Managers;
 import model.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTaskManagerTest {
 
+    private InMemoryTaskManager manager;
+
+    @BeforeEach
+    void beforeEach() {
+        manager = (InMemoryTaskManager) Managers.getDefault();
+    }
+
     @Test
     void taskIdEqualsTest() {
-        InMemoryTaskManager manager = new InMemoryTaskManager();
         Task taskOne = new Task("Test name task", "Test description task");
         manager.add(taskOne);
         Task taskTwo = new Task("Test name task", "Test description task");
@@ -20,7 +29,6 @@ class InMemoryTaskManagerTest {
 
     @Test
     void subtaskIdEqualsTest() {
-        InMemoryTaskManager manager = new InMemoryTaskManager();
         Epic epic = new Epic("Test name epic", "Test description epic");
         manager.add(epic);
         SubTask subtaskOne = new SubTask("Test name subtask", "Test description subtask");
@@ -33,7 +41,6 @@ class InMemoryTaskManagerTest {
 
     @Test
     void EpicIdEqualsTest() {
-        InMemoryTaskManager manager = new InMemoryTaskManager();
         Epic epicOne = new Epic("Test name epic", "Test description epic");
         manager.add(epicOne);
 
@@ -50,7 +57,6 @@ class InMemoryTaskManagerTest {
 
     @Test
     void addTaskIsEmptyListTest() {
-        InMemoryTaskManager manager = new InMemoryTaskManager();
         Task task = new Task("Test name task", "Test description task");
         SubTask subtask = new SubTask("Test name task", "Test description task");
         Epic epic = new Epic("Test name task", "Test description task");
@@ -67,7 +73,6 @@ class InMemoryTaskManagerTest {
 
     @Test
     void getTasksIdTest() {
-        InMemoryTaskManager manager = new InMemoryTaskManager();
         Task task = new Task("Test name task", "Test description task");
         SubTask subtask = new SubTask("Test name task", "Test description task");
         Epic epic = new Epic("Test name task", "Test description task");
@@ -82,20 +87,19 @@ class InMemoryTaskManagerTest {
         assertEquals(epic, manager.getEpic(epic.getId()));
 
     }
+
     @Test
-    void getEpicSubtasksIdTest(){
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+    void getEpicSubtasksIdTest() {
         SubTask subtask = new SubTask("Test name task", "Test description task");
         Epic epic = new Epic("Test name task", "Test description task");
         manager.add(epic);
         manager.add(epic, subtask);
-        assertEquals(epic.getSubtasks(),manager.getEpicSubtasks(epic.getId()));
+        assertEquals(epic.getSubtasks(), manager.getEpicSubtasks(epic.getId()));
     }
 
 
     @Test
-    void delTasksTest(){
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+    void delTasksTest() {
         Task task = new Task("Test name task", "Test description task");
         manager.add(task);
         manager.delTasks();
@@ -103,32 +107,29 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void delEpicsTest(){
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+    void delEpicsTest() {
         SubTask subtask = new SubTask("Test name task", "Test description task");
         Epic epic = new Epic("Test name task", "Test description task");
         manager.add(epic);
-        manager.add(epic,subtask);
+        manager.add(epic, subtask);
         manager.delEpics();
         assertTrue(manager.getSubtasks().isEmpty());
         assertTrue(manager.getEpics().isEmpty());
     }
 
     @Test
-    void delSubtasksTest(){
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+    void delSubtasksTest() {
         SubTask subtask = new SubTask("Test name task", "Test description task");
         Epic epic = new Epic("Test name task", "Test description task");
         manager.add(epic);
-        manager.add(epic,subtask);
+        manager.add(epic, subtask);
         manager.delSubtasks();
         assertTrue(manager.getSubtasks().isEmpty());
 
     }
 
     @Test
-    void delTaskTest(){
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+    void delTaskTest() {
         Task task = new Task("Test name task", "Test description task");
         manager.add(task);
         manager.delTask(task.getId());
@@ -137,12 +138,11 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void delEpicTest(){
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+    void delEpicTest() {
         SubTask subtask = new SubTask("Test name task", "Test description task");
         Epic epic = new Epic("Test name task", "Test description task");
         manager.add(epic);
-        manager.add(epic,subtask);
+        manager.add(epic, subtask);
         manager.delEpic(epic.getId());
         assertTrue(manager.getSubtasks().isEmpty());
         assertTrue(manager.getEpics().isEmpty());
@@ -151,23 +151,22 @@ class InMemoryTaskManagerTest {
 
 
     @Test
-    void delSubtaskTest(){
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+    void delSubtaskTest() {
         SubTask subtask = new SubTask("Test name task", "Test description task");
         Epic epic = new Epic("Test name task", "Test description task");
         manager.add(epic);
-        manager.add(epic,subtask);
-        manager.delSubtask(epic.getId(),subtask.getId());
+        manager.add(epic, subtask);
+        manager.delSubtask(epic.getId(), subtask.getId());
         assertTrue(manager.getSubtasks().isEmpty());
 
     }
+
     @Test
-    void updateEpicStatusTest(){
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+    void updateEpicStatusTest() {
         SubTask subtask = new SubTask("Test name task", "Test description task");
         Epic epic = new Epic("Test name task", "Test description task");
         manager.add(epic);
-        manager.add(epic,subtask);
+        manager.add(epic, subtask);
         subtask.setStatus(TaskStatus.IN_PROGRESS);
         manager.updateEpic(epic);
         assertEquals(TaskStatus.IN_PROGRESS, epic.getStatus());

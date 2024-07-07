@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 
 
-public interface TaskManager extends HistoryManager{
+public interface TaskManager extends HistoryManager {
 
     ArrayList<Task> getTasks();
 
