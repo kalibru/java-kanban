@@ -5,10 +5,10 @@ import model.SubTask;
 import model.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-
-public interface TaskManager extends HistoryManager {
+public interface TaskManager {
 
     ArrayList<Task> getTasks();
 
@@ -47,5 +47,7 @@ public interface TaskManager extends HistoryManager {
     void updateSubTask(Epic epic, SubTask subTask);
 
     void updateEpic(Epic epic);
+
+    List<Task> getHistory();
 
 }

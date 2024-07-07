@@ -3,13 +3,14 @@ import model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class InMemoryTaskManager extends InMemoryHistoryManager implements TaskManager {
+public class InMemoryTaskManager implements TaskManager {
 
     private final HashMap<Integer, Task> tasks = new HashMap<>();
     private final HashMap<Integer, Epic> epics = new HashMap<>();
     private final HashMap<Integer, SubTask> subtasks = new HashMap<>();
-
+    private HistoryManager historyManager = Managers.getDefaultHistory();
     @Override
     public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks.values());
@@ -24,22 +25,26 @@ public class InMemoryTaskManager extends InMemoryHistoryManager implements TaskM
     public ArrayList<SubTask> getSubtasks() {
         return new ArrayList<>(subtasks.values());
     }
+    @Override
+    public List<Task> getHistory(){
+        return new ArrayList<>(historyManager.getHistory());
+    }
 
     @Override
     public Task getTask(int id) {
-        addHistory(tasks.get(id));
+        historyManager.addHistory(tasks.get(id));
         return tasks.get(id);
     }
 
     @Override
     public Epic getEpic(int id) {
-        addHistory(epics.get(id));
+        historyManager.addHistory(epics.get(id));
         return epics.get(id);
     }
 
     @Override
     public SubTask getSubTask(int id) {
-        addHistory(subtasks.get(id));
+        historyManager.addHistory(subtasks.get(id));
         return subtasks.get(id);
     }
 
@@ -138,5 +143,6 @@ public class InMemoryTaskManager extends InMemoryHistoryManager implements TaskM
         epic.updateEpicStatus();
         epics.put(epic.getId(), epic);
     }
+
 }
 
